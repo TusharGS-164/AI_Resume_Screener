@@ -1,0 +1,36 @@
+About the Role
+
+We are looking for a Full Stack Developer to build and maintain web applications across the entire stack. You will work on frontend interfaces, backend APIs, and database systems to deliver scalable and reliable products. The ideal candidate has experience building modern web applications using React, Node.js, and relational databases.
+
+Responsibilities
+Develop and maintain full stack web applications
+Build responsive user interfaces using React
+Design and implement REST APIs using Node.js and Express
+Work with databases such as PostgreSQL or MySQL
+Integrate third-party APIs and services
+Write clean, maintainable, and well-documented code
+Collaborate with designers and product managers
+Participate in code reviews and team meetings
+Deploy applications using Docker or cloud platforms (AWS, GCP, or Azure)
+Troubleshoot bugs and improve application performance
+Required Skills
+Strong knowledge of JavaScript
+Experience with React
+Experience with Node.js and Express
+Experience with SQL databases (PostgreSQL or MySQL)
+Knowledge of Git and version control
+Understanding of REST API design
+Basic knowledge of HTML and CSS
+Understanding of authentication (JWT, sessions)
+Nice to Have
+Experience with TypeScript
+Experience with Next.js
+Experience with Docker
+Experience with AWS or GCP
+CI/CD pipeline experience
+Unit testing (Jest, Vitest, etc.)
+Education
+Bachelor’s degree in Computer Science or related field (or equivalent experience)
+Keywords (for AI matching)
+
+React, Node.js, JavaScript, TypeScript, Express, PostgreSQL, REST API, Docker, AWS, Git, HTML, CSS, Full Stack, Web Development
