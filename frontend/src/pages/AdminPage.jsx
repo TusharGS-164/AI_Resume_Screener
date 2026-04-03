@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
+import API from "../api";
 import { ShieldCheck, Users, FileStack, BarChart2, TrendingUp } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 
@@ -39,12 +40,28 @@ export default function AdminPage() {
   const [stats, setStats] = useState(null)
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
+useEffect(() => {
+  Promise.all([
+    API.get('/api/admin/stats'),
+    API.get('/api/admin/users')
+  ])
+    .then(([s, u]) => {
+      setStats(s.data);
+      setUsers(u.data);
+    })
+    .catch((err) => {
+      console.error("Admin API error:", err);
+      setStats({
+        total_users: 0,
+        total_sessions: 0,
+        total_candidates: 0,
+        avg_score: 0
+      });
+      setUsers([]);
+    })
+    .finally(() => setLoading(false));
+}, []);
 
-  useEffect(() => {
-    Promise.all([axios.get('/api/admin/stats'), axios.get('/api/admin/users')])
-      .then(([s, u]) => { setStats(s.data); setUsers(u.data) })
-      .finally(() => setLoading(false))
-  }, [])
 
   if (loading) return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--text-3)', gap: 10 }}>
@@ -67,10 +84,10 @@ export default function AdminPage() {
 
       {/* Stats */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: '1.75rem' }}>
-        <StatCard icon={Users} label="Total users" value={stats.total_users} color="var(--blue)" delay="0.05s" />
-        <StatCard icon={FileStack} label="Sessions" value={stats.total_sessions} color="var(--green)" delay="0.10s" />
-        <StatCard icon={BarChart2} label="Candidates analyzed" value={stats.total_candidates} color="var(--gold)" delay="0.15s" />
-        <StatCard icon={TrendingUp} label="Avg match score" value={`${stats.avg_score}`} color="var(--amber)" delay="0.20s" />
+        <StatCard icon={Users} label="Total users" value={stats.total_users || 0} color="var(--blue)" delay="0.05s" />
+        <StatCard icon={FileStack} label="Sessions" value={stats.total_sessions || 0} color="var(--green)" delay="0.10s" />
+        <StatCard icon={BarChart2} label="Candidates analyzed" value={stats.total_candidates || 0} color="var(--gold)" delay="0.15s" />
+        <StatCard icon={TrendingUp} label="Avg match score" value={`${stats.avg_score}` || 0} color="var(--amber)" delay="0.20s" />
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '1.25rem' }}>

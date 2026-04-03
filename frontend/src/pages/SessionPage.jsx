@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+// import axios from 'axios'
 import {
   ArrowLeft, Download, Star, CheckCircle, XCircle, HelpCircle, AlertCircle,
   ChevronDown, ChevronUp, Search, SlidersHorizontal, EyeOff, Eye,
@@ -143,20 +143,29 @@ function CandidateCard({ candidate: initial, rank, blindMode, onStageChange }) {
 
   useEffect(() => { setCandidate(initial); setNotes(initial.recruiter_notes || '') }, [initial])
 
-  const updateStage = async (stage) => {
-    const updated = { ...candidate, stage }
-    setCandidate(updated)
-    onStageChange(candidate.id, stage)
-    await axios.patch(`/api/screen/candidates/${candidate.id}`, { stage, recruiter_notes: notes })
-  }
+ const updateStage = async (stage) => {
+  const updated = { ...candidate, stage };
+  setCandidate(updated);
+  onStageChange(candidate.id, stage);
 
-  const saveNotes = async () => {
-    setSaving(true)
-    await axios.patch(`/api/screen/candidates/${candidate.id}`, { stage: candidate.stage, recruiter_notes: notes })
-    setCandidate(c => ({ ...c, recruiter_notes: notes }))
-    setSaving(false)
-    setNotesOpen(false)
-  }
+  await API.patch(`/api/screen/candidates/${candidate.id}`, {
+    stage,
+    recruiter_notes: notes,
+  });
+};
+
+const saveNotes = async () => {
+  setSaving(true);
+
+  await API.patch(`/api/screen/candidates/${candidate.id}`, {
+    stage: candidate.stage,
+    recruiter_notes: notes,
+  });
+
+  setCandidate((c) => ({ ...c, recruiter_notes: notes }));
+  setSaving(false);
+  setNotesOpen(false);
+};
 
   const displayName = blindMode ? `Candidate #${candidate.id}` : (candidate.name || candidate.filename)
 
@@ -385,9 +394,9 @@ export default function SessionPage() {
       if (maxExp) params.append('max_exp', maxExp)
       if (hideDupes) params.append('hide_duplicates', 'true')
       if (blindMode) params.append('blind_mode', 'true')
-      const res = await axios.get(`/api/screen/sessions/${id}?${params}`)
-      const data = res.data
-      data.candidates = data.candidates.map(c => ({ ...c, recommendation: normalizeRec(c.recommendation) }))
+const res = await API.get(`/api/screen/sessions/${id}?${params}`);
+            const data = res.data
+ data.candidates = data.candidates.map(c => ({ ...c, recommendation: normalizeRec(c.recommendation) }))
       setSession(data)
     } catch { navigate('/dashboard') }
     setLoading(false)
@@ -403,7 +412,7 @@ export default function SessionPage() {
   }
 
   const exportFile = async type => {
-    const res = await axios.get(`/api/screen/sessions/${id}/export/${type}`, { responseType: 'blob' })
+    const res = await API.get(`/api/screen/sessions/${id}/export/${type}`, { responseType: 'blob' })
     const url = URL.createObjectURL(res.data)
     const a = document.createElement('a'); a.href = url; a.download = `screening_${id}.${type}`; a.click()
     URL.revokeObjectURL(url)

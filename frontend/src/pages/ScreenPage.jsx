@@ -86,19 +86,19 @@ export default function ScreenPage() {
     formData.append("title", title);
     formData.append("job_description", jd);
     files.forEach((f) => formData.append("files", f));
-    try {
-      const res = await axios.post("/api/screen/", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      navigate(`/sessions/${res.data.session_id}`);
-    } catch (err) {
-      setError(
-        err.response?.data?.detail ||
-          "Screening failed. Check your Gemini API key in the backend .env file.",
-      );
-      setLoading(false);
-      setProgress("");
-    }
+  try {
+  const res = await API.post("/api/screen/", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  navigate(`/sessions/${res.data.session_id}`);
+} catch (err) {
+  setError(
+    err.response?.data?.detail ||
+      "Screening failed. Check your Gemini API key in the backend .env file."
+  );
+  setLoading(false);
+  setProgress("");
+}
   };
 
   const readyChecks = [

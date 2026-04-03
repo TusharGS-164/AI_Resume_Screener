@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
+import API from "../api";
+
 import { useAuth } from "../context/AuthContext";
 import {
   ScanSearch,
@@ -127,19 +129,19 @@ export default function DashboardPage() {
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    axios
-      .get("/api/screen/sessions")
-      .then((r) => setSessions(r.data))
-      .finally(() => setLoading(false));
-  }, []);
+useEffect(() => {
+  API
+    .get("/api/screen/sessions")
+    .then((r) => setSessions(r.data))
+    .finally(() => setLoading(false));
+}, []);
 
-  const deleteSession = async (id, e) => {
-    e.stopPropagation();
-    if (!confirm("Delete this screening session and all its data?")) return;
-    await axios.delete(`/api/screen/sessions/${id}`);
-    setSessions((s) => s.filter((x) => x.id !== id));
-  };
+const deleteSession = async (id, e) => {
+  e.stopPropagation();
+  if (!confirm("Delete this screening session and all its data?")) return;
+  await API.delete(`/api/screen/sessions/${id}`);
+  setSessions((s) => s.filter((x) => x.id !== id));
+};
 
   const totalCandidates = sessions.reduce((a, s) => a + s.candidate_count, 0);
   const avgScore = sessions.length
