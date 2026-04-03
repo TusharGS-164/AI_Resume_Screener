@@ -295,18 +295,46 @@ def delete_session(session_id: int, db: Session = Depends(get_db), current_user:
 
 
 @router.get("/sessions/{session_id}/export/csv")
-def export_session_csv(session_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def export_session_csv(
+    session_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     s = db.query(ScreeningSession).filter(ScreeningSession.id == session_id).first()
-    if not s: raise HTTPException(status_code=404)
+    if not s:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    # Authorization check
+    if not current_user.is_admin and s.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Not authorized")
+
     candidates = sorted(s.candidates, key=lambda c: c.score, reverse=True)
-    return Response(content=export_csv(candidates), media_type="text/csv",
-                    headers={"Content-Disposition": f"attachment; filename=screening_{session_id}.csv"})
+
+    return Response(
+        content=export_csv(candidates),
+        media_type="text/csv",
+        headers={"Content-Disposition": f"attachment; filename=screening_{session_id}.csv"}
+    )
 
 
 @router.get("/sessions/{session_id}/export/pdf")
-def export_session_pdf(session_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def export_session_pdf(
+    session_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     s = db.query(ScreeningSession).filter(ScreeningSession.id == session_id).first()
-    if not s: raise HTTPException(status_code=404)
+    if not s:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    # Authorization check
+    if not current_user.is_admin and s.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Not authorized")
+
     candidates = sorted(s.candidates, key=lambda c: c.score, reverse=True)
-    return Response(content=export_pdf(s.title, s.job_description, candidates), media_type="application/pdf",
-                    headers={"Content-Disposition": f"attachment; filename=screening_{session_id}.pdf"})
+
+    return Response(
+        content=export_pdf(s.title, s.job_description, candidates),
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename=screening_{session_id}.pdf"}
+    )
