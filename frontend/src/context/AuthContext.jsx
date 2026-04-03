@@ -3,6 +3,10 @@ import axios from 'axios'
 
 const AuthContext = createContext(null)
 
+const API = axios.create({
+  baseURL: import.meta.env.VITE_API_URL
+})
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -12,7 +16,7 @@ export function AuthProvider({ children }) {
     const savedUser = localStorage.getItem('user')
     if (token && savedUser) {
       setUser(JSON.parse(savedUser))
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+      API.defaults.headers.common['Authorization'] = `Bearer ${token}`
     }
     setLoading(false)
   }, [])
@@ -21,24 +25,26 @@ export function AuthProvider({ children }) {
     const form = new URLSearchParams()
     form.append('username', email)
     form.append('password', password)
-    const res = await axios.post('/api/auth/login', form)
+
+    const res = await API.post('/api/auth/login', form)
+
     const { access_token, user: userData } = res.data
     localStorage.setItem('token', access_token)
     localStorage.setItem('user', JSON.stringify(userData))
-    axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
+    API.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
     setUser(userData)
     return userData
   }
 
   const register = async (email, name, password) => {
-    await axios.post('/api/auth/register', { email, name, password })
+    await API.post('/api/auth/register', { email, name, password })
     return login(email, password)
   }
 
   const logout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
-    delete axios.defaults.headers.common['Authorization']
+    delete API.defaults.headers.common['Authorization']
     setUser(null)
   }
 
