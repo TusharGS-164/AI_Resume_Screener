@@ -8,5 +8,17 @@ export default defineConfig({
     proxy: {
       '/api': { target: 'http://localhost:8000', changeOrigin: true }
     }
+  },
+  build: {
+    chunkSizeWarningLimit: 1000, // increase warning limit
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+          vendor: ['axios']
+        }
+      }
+    }
   }
 })

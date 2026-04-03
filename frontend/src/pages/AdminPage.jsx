@@ -122,7 +122,7 @@ export default function AdminPage() {
                       </div>
                       <span style={{ fontWeight: 500, fontSize: 14, color: 'var(--text)' }}>{u.name}</span>
                     </div>
-                    <div style={{ fontSize: 14, color: 'var(--text-3)', overflow: 'hidden',paddingRight:'0px',margin:'0px', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 8 }}>{u.email}</div>
+                    <div style={{ fontSize: 14, color: 'var(--text-3)', overflow: 'hidden',margin:'0px', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 8 }}>{u.email}</div>
                     <div>
                       <span style={{ fontSize: 13, padding: '2px 8px', borderRadius: 99, background: u.is_admin ? 'var(--amber-bg)' : 'var(--bg-4)', color: u.is_admin ? 'var(--amber)' : 'var(--text-3)', fontWeight: 500, border: `1px solid ${u.is_admin ? 'var(--amber-border)' : 'var(--border)'}`, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                         {u.is_admin ? 'Admin' : 'Member'}
