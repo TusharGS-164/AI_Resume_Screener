@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
+  base: '/',   // IMPORTANT for Vercel
   plugins: [react()],
   server: {
     port: 5173,
@@ -10,7 +11,7 @@ export default defineConfig({
     }
   },
   build: {
-    chunkSizeWarningLimit: 1000, // increase warning limit
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks: {

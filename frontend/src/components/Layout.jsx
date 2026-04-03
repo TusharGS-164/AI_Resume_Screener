@@ -1,4 +1,4 @@
-import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { Outlet, NavLink, useNavigate, useLocation ,NavLink} from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { LayoutDashboard, ScanSearch, ShieldCheck, LogOut, Sparkles } from 'lucide-react'
 import logo from '../assets/resume-logo.png'
@@ -98,21 +98,54 @@ function AppFooter() {
           <div>
             <div style={{ fontSize: 12, fontWeight: 700, color: 'black', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 14 }}>Support</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
-              {[
-                { label: 'Documentation', href: '/docs' },
-                { label: 'API Reference',  href: '/Api' },
-                { label: 'Privacy Policy', href: '/privacy' },
-                { label: 'Terms of Use',   href: '/terms' },
-                { label: 'Contact Us',     href: '/contact' },
-              ].map(({ label, href }) => (
-                <a key={label} href={href} style={{ fontSize: 13, color: 'var(--text-3)', display: 'flex', alignItems: 'center', gap: 4, transition: 'color 0.15s' }}
-                  onMouseEnter={e => e.currentTarget.style.color = 'var(--blue)'}
-                  onMouseLeave={e => e.currentTarget.style.color = 'var(--text-3)'}
-                >
-                  {label}
-                  {href.startsWith('http') && <ExternalLink size={10} />}
-                </a>
-              ))}
+             {[
+  { label: 'Documentation', href: '/docs' },
+  { label: 'API Reference',  href: '/api' },
+  { label: 'Privacy Policy', href: '/privacy' },
+  { label: 'Terms of Use',   href: '/terms' },
+  { label: 'Contact Us',     href: '/contact' },
+].map(({ label, href }) => {
+  const isExternal = href.startsWith('http')
+
+  const style = {
+    fontSize: 13,
+    color: 'var(--text-3)',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 4,
+    transition: 'color 0.15s',
+    textDecoration: 'none'
+  }
+
+  if (isExternal) {
+    return (
+      <a
+        key={label}
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={style}
+        onMouseEnter={e => e.currentTarget.style.color = 'var(--blue)'}
+        onMouseLeave={e => e.currentTarget.style.color = 'var(--text-3)'}
+      >
+        {label}
+        <ExternalLink size={10} />
+      </a>
+    )
+  }
+
+  return (
+    <NavLink
+      key={label}
+      to={href}
+      style={style}
+      onMouseEnter={e => e.currentTarget.style.color = 'var(--blue)'}
+      onMouseLeave={e => e.currentTarget.style.color = 'var(--text-3)'}
+    >
+      {label}
+    </NavLink>
+  )
+})}
             </div>
           </div>
         </div>
