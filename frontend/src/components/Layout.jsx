@@ -2,6 +2,7 @@ import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { LayoutDashboard, ScanSearch, ShieldCheck, LogOut, Sparkles } from 'lucide-react'
 import logo from '../assets/resume-logo.png'
+import { ExternalLink } from 'lucide-react'
 
 function AppFooter() {
   const year = new Date().getFullYear()
@@ -56,13 +57,23 @@ function AppFooter() {
               {[
                 { label: 'Dashboard',      href: '/dashboard' },
                 { label: 'New Screening',  href: '/screen' },
-                { label: 'Blind Mode',     href: '/screen' },
-                { label: 'Export Reports', href: '/dashboard' },
+               { label: 'Blind Mode', href: '/screen?mode=blind' },
+               { label: 'Export Reports', href: '/dashboard?export=true' },
               ].map(({ label, href }) => (
-                <a key={label} href={href} style={{ fontSize: 13, color: 'var(--text-3)', transition: 'color 0.15s' }}
-                  onMouseEnter={e => e.currentTarget.style.color = 'var(--blue)'}
-                  onMouseLeave={e => e.currentTarget.style.color = 'var(--text-3)'}
-                >{label}</a>
+                <NavLink
+        key={label}
+        to={href}
+        style={{
+          fontSize: 13,
+          color: 'var(--text-3)',
+          textDecoration: 'none',
+          transition: 'color 0.15s'
+        }}
+        onMouseEnter={e => e.currentTarget.style.color = 'var(--blue)'}
+        onMouseLeave={e => e.currentTarget.style.color = 'var(--text-3)'}
+      >
+        {label}
+      </NavLink>
               ))}
             </div>
           </div>
@@ -89,8 +100,8 @@ function AppFooter() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
               {[
                 { label: 'Documentation', href: '/docs' },
-                { label: 'API Reference',  href: '/api' },
-                { label: 'Privacy Policy', href: 'privacy' },
+                { label: 'API Reference',  href: '/Api' },
+                { label: 'Privacy Policy', href: '/privacy' },
                 { label: 'Terms of Use',   href: '/terms' },
                 { label: 'Contact Us',     href: '/contact' },
               ].map(({ label, href }) => (
