@@ -16,8 +16,8 @@ const topics = [
 const channels = [
   { icon: Mail,     label: 'Email us',       value: 'hello@hiresense.com',         href: 'mailto:hello@hiresense.com',   color: 'var(--blue)',   bg: 'var(--blue-light)',  border: 'var(--blue-mid)',      desc: 'We reply within 24 hours' },
   { icon: Github,   label: 'GitHub Issues',   value: 'github.com/hiresense',        href: '#',                           color: 'var(--text)',   bg: 'var(--bg)',          border: 'var(--border)',        desc: 'Open an issue or PR' },
-  { icon: Twitter,  label: 'Twitter / X',     value: '@hiresense',                  href: '#',                           color: '#1da1f2',       bg: '#e8f5fd',            border: '#b3ddf5',              desc: 'Quick questions & updates' },
-  { icon: Linkedin, label: 'LinkedIn',        value: 'linkedin.com/company/hiresense', href: '#',                        color: '#0a66c2',       bg: '#e8f0fb',            border: '#b3d0f5',              desc: 'Professional network' },
+  { icon: Twitter,  label: 'Twitter / X',     value: '@hiresense',                  href: '#',                           color: '#1da1f2',       bg: '#f',            border: 'var(--blue-mid)',              desc: 'Quick questions & updates' },
+  { icon: Linkedin, label: 'LinkedIn',        value: 'linkedin.com/company/hiresense', href: '#',                        color: '#0a66c2',       bg: '#f',            border: 'var(--border)',              desc: 'Professional network' },
 ]
 
 const faqs = [
@@ -29,7 +29,7 @@ const faqs = [
   { q: 'Is blind mode truly bias-free?',         a: 'Blind mode hides names, contact details, and uses bias-minimized AI summaries. It significantly reduces surface-level bias but does not eliminate all sources of unconscious bias. All hiring decisions should involve human review.' },
 ]
 
-const inp = { width: '100%', padding: '10px 14px', border: '1px solid var(--border-2)', borderRadius: 'var(--radius)', fontSize: 14, color: 'var(--text)', background: '#f', outline: 'none', transition: 'border-color 0.15s, box-shadow 0.15s', fontFamily: 'var(--font)' }
+const inp = { width: '100%', padding: '10px 14px', border: '1px solid var(--border-2)', borderRadius: 'var(--radius)', fontSize: 14, color: '#fff', background: 'black', outline: 'none', transition: 'border-color 0.15s, box-shadow 0.15s', fontFamily: 'var(--font)' }
 const focusIn  = e => { e.target.style.borderColor = 'var(--blue)'; e.target.style.boxShadow = '0 0 0 3px rgba(37,87,167,0.10)' }
 const focusOut = e => { e.target.style.borderColor = 'var(--border-2)'; e.target.style.boxShadow = 'none' }
 
