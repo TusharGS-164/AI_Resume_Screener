@@ -1,4 +1,4 @@
-import { Outlet, NavLink, useNavigate, useLocation ,NavLink} from 'react-router-dom'
+import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { LayoutDashboard, ScanSearch, ShieldCheck, LogOut, Sparkles } from 'lucide-react'
 import logo from '../assets/resume-logo.png'
