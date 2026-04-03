@@ -28,7 +28,7 @@ const REC_META = {
 
 const STAGE_META = {
   new:         { label: 'New',         icon: Clock,      color: 'var(--text-3)',  bg: 'var(--bg-4)',      border: 'var(--border)' },
-  reviewed:    { label: 'wed',    icon: Eye,        color: 'var(--blue)',    bg: 'var(--blue-bg)',   border: 'var(--blue-border)' },
+  reviewed:    { label: 'reviewed',    icon: Eye,        color: 'var(--blue)',    bg: 'var(--blue-bg)',   border: 'var(--blue-border)' },
   shortlisted: { label: 'Shortlisted', icon: CheckSquare,color: 'var(--green)',   bg: 'var(--green-bg)',  border: 'var(--green-border)' },
   rejected:    { label: 'Rejected',    icon: UserX,      color: 'var(--red)',     bg: 'var(--red-bg)',    border: 'var(--red-border)' },
   hired:       { label: 'Hired',       icon: Trophy,     color: 'var(--gold)',    bg: 'var(--gold-dim)',  border: 'rgba(201,169,110,0.3)' },
