@@ -15,14 +15,11 @@ _BASE = "https://generativelanguage.googleapis.com/v1/models/{model}:generateCon
 
 # Try these models in order — first one that works is used
 _CANDIDATE_MODELS = [
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-lite",
-    "gemini-1.5-flash",
-    "gemini-1.5-flash-001",
-    "gemini-1.5-flash-latest",
-    "gemini-1.5-pro",
-    "gemini-1.5-pro-latest",
-    "gemini-pro",
+    "models/gemini-2.0-flash",
+    "models/gemini-2.0-flash-lite",
+    "models/gemini-1.5-flash",
+    "models/gemini-1.5-flash-001",
+    "models/gemini-1.5-pro",
 ]
 
 _active_model: str | None = None   # cached after first successful call
