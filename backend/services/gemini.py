@@ -11,7 +11,7 @@ import requests
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 
 # Stable v1 endpoint — broader model support than v1beta
-_BASE = "https://generativelanguage.googleapis.com/v1/models/{model}:generateContent?key={GEMINI_API_KEY}"
+_BASE = "https://generativelanguage.googleapis.com/v1/models/{model}:generateContent?key={key}"
 
 # Try these models in order — first one that works is used
 _CANDIDATE_MODELS = [
