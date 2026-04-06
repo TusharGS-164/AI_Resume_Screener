@@ -11,15 +11,14 @@ import requests
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 
 # Stable v1 endpoint — broader model support than v1beta
-_BASE = "https://generativelanguage.googleapis.com/v1/models/{model}:generateContent?key=AIzaSyAEXTylZkf1g15kT3BjcKTrzOCyqzPjJgs"
+_BASE = "https://generativelanguage.googleapis.com/v1/models/{model}:generateContent?key={GEMINI_API_KEY}"
 
 # Try these models in order — first one that works is used
 _CANDIDATE_MODELS = [
-    "models/gemini-2.0-flash",
-    "models/gemini-2.0-flash-lite",
-    "models/gemini-1.5-flash",
-    "models/gemini-1.5-flash-001",
-    "models/gemini-1.5-pro",
+    "gemini-2.5-flash",
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-lite",
+    "gemini-2.5-pro",
 ]
 
 _active_model: str | None = None   # cached after first successful call
