@@ -18,7 +18,7 @@ _CANDIDATE_MODELS = [
     "gemini-2.5-flash",
     "gemini-2.0-flash",
     "gemini-2.0-flash-lite",
-    "gemini-2.5-pro",
+    
 ]
 
 _active_model: str | None = None   # cached after first successful call
@@ -39,7 +39,7 @@ def _find_working_model() -> str:
         )
 
     ping_payload = {
-        "contents": [{"role": "user", "parts": [{"text": "hi"}]}],
+        "contents": [{"parts": [{"text": "hi"}]}],
         "generationConfig": {"maxOutputTokens": 5},
     }
 
@@ -100,7 +100,7 @@ def _call_gemini(prompt: str) -> str:
     url = _BASE.format(model=model, key=GEMINI_API_KEY)
 
     payload = {
-        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+        "contents": [{"parts": [{"text": prompt}]}],
         "systemInstruction": {
             "parts": [{
                 "text": (
