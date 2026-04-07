@@ -7,8 +7,13 @@ import os
 import json
 import hashlib
 import requests
+from dotenv import load_dotenv
 
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+load_dotenv()
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+if not GEMINI_API_KEY:
+    raise RuntimeError("Missing GEMINI_API_KEY environment variable")
 
 # Stable v1 endpoint — broader model support than v1beta
 _BASE = "https://generativelanguage.googleapis.com/v1/models/{model}:generateContent?key={key}"
